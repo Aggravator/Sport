@@ -1,0 +1,84 @@
+.gradient-grey{
+    background: #ffffff; /* Old browsers */
+    background: -moz-linear-gradient(top,  #ffffff 0%, #e5e5e5 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#e5e5e5)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #ffffff 0%,#e5e5e5 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #ffffff 0%,#e5e5e5 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #ffffff 0%,#e5e5e5 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #ffffff 0%,#e5e5e5 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
+}
+body{
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.container{
+    margin-left:auto;
+    margin-right:auto;
+    padding:0px 5px 0px 5px;
+    max-width:1300px;
+    min-width:800px;
+}
+.nav-bar{
+    display:block;
+    margin: 10px 0px 20px 0px;
+}
+.nav-bar-inner{
+    border: 1px solid #d4d4d4;
+    height: 40px;
+    line-height:40px;
+    color:#999999;
+    padding:0px 10px 0px 0px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+.nav-path, .right-menu{
+    font-weight:600;
+    color: #999999;
+    list-style:none;
+    height:100%;
+    margin:0px;
+    padding:0px;
+}
+.nav-path{float:left;font-size: 20px;}
+.nav-path li{
+    float:left;
+    padding: 0px 0px 0px 10px;
+    cursor: pointer;
+    height:100%;
+}
+.lpath li:after{
+    content:" >"
+}
+.nav-path li:hover,.right-menu li:hover{
+    color:#777777;
+}
+.nav-bar-inner .fio{
+    font-size:17px;
+    float:right;
+}
+.right-menu{float:right;}
+.right-menu li{
+    float:left;
+    margin:0px 0px 0px 10px;
+    cursor:pointer;
+    font-size:18px;
+}
+.page-header{
+    margin:20px 0px 20px 0px;
+    border-bottom: solid 1px #999999;
+}
+.page-header .head-text{
+    font-size:40px;
+    margin: 20px;
+}
+.footer{
+    margin:0px 0px 0px 0px;
+    padding:15px 0px 0px 0px;
+    clear:both;
+}
+.footer p{
+    border-top: solid 1px #cacaca;
+    padding:10px 0px 0px 0px;
+    margin:0px;
+}

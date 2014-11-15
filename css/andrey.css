@@ -1,0 +1,18 @@
+.modal-stack-bg { 
+	position: fixed;
+	background-image:url('../img/fone.png');
+	z-index: 10;
+	top: 0;
+	left: 0; 
+	bottom:0;
+	right:0;
+	text-align:center;
+	overflow:auto;
+}
+.modal-stack-content {
+	overflow:auto;
+	display:inline-block;
+	z-index: 11;
+	margin:40px 20px 20px 20px;
+	padding: 0px;
+}

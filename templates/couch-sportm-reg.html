@@ -1,0 +1,36 @@
+<div  ng-controller="sportmanReg">
+	<div class="participants">
+		<table class="pure-table pure-table-bordered">
+		    <thead>
+		        <tr>
+		            <th></th>
+		            <th>Фамилия</th>
+		            <th>Имя</th>
+		            <th>Отчество</th>
+		            <th>Дата</br>рождения</th>
+		            <th>Вес</th>
+		            <th>Пол</th>
+		            <th>Разряд</th>
+		            <th></th>
+		        </tr>
+		    </thead>
+		    <tbody >
+		        <tr ng-repeat="sportman in sportmans">
+		            <td class="pic-cell"><img  ng-click="editSportman($index)" src="img/editX20.png"></img></td>
+		            <td>{{sportman.surname}}</td>
+		            <td >{{sportman.name}}</td>
+		            <td>{{sportman.patronymic}}</td>
+		            <td>{{sportman.dateBirthday}}</td>
+		            <td>{{sportman.weight}}</td>
+		            <td>{{sportman.gender.key}}</td>
+		            <td>{{sportman.rank.key}}</td>
+		            <td class="pic-cell"><span style="font-size:24px;" ng-click="removeSportman($index)">✖</span></td>
+		        </tr>
+		    </tbody>
+		</table>
+		<a ng-click="addSportman()">Добавить</a>
+	</div>
+	<div style="margin-top: 20px;" ng-show="sportmans.length>0">
+		<a class="pure-button pure-button-primary" ng-click="register()">Зарегестрироваться</a>
+	</div>
+</div>

@@ -1,0 +1,38 @@
+<div  ng-controller="sportmanActive">
+	<div class="participants">
+		<table class="pure-table pure-table-bordered">
+		    <thead>
+		        <tr>
+		            <th></th>
+		            <th>Фамилия</th>
+		            <th>Имя</th>
+		            <th>Отчество</th>
+		            <th>Дата</br>рождения</th>
+		            <th>Вес</th>
+		            <th>Пол</th>
+		            <th>Разряд</th>
+		            <th>Статус</th>
+		            <th></th>
+		        </tr>
+		    </thead>
+		    <tbody >
+		        <tr ng-repeat="sportman in sportmans">
+		            <td ng-class="{'pic-cell': sportman.status.value<1}"><img ng-hide="sportman.status.value>0"  ng-click="editSportman($index)" src="img/editX20.png"></img></td>
+		            <td>{{sportman.surname}}</td>
+		            <td >{{sportman.name}}</td>
+		            <td>{{sportman.patronymic}}</td>
+		            <td>{{sportman.dateBirthday}}</td>
+		            <td>{{sportman.weight}}</td>
+		            <td>{{sportman.gender.key}}</td>
+		            <td>{{sportman.rank.key}}</td>
+		            <td>{{sportman.status.key}}</td>
+		            <td class="pic-cell"><span style="font-size:24px;" ng-click="removeSportman($index)">✖</span></td>
+		        </tr>
+		    </tbody>
+		</table>
+		<a ng-click="addSportman()">Добавить</a>
+	</div>
+	<div style="margin-top: 20px;" ng-show="hasChanged">
+		<a class="pure-button pure-button-primary" ng-click="save()">Сохранить</a>
+	</div>
+</div>

@@ -1,0 +1,131 @@
+<div class="dialog" style="width:500px;" id="editSportman">
+    <div class="header">
+        <div class="text">Редактирование спортсмена</div>
+        <div class="close-button">✖</div>
+    </div>
+    <div class="content">
+        <form class="pure-form pure-form-aligned authority-form">
+            <fieldset>
+                <div class="pure-control-group">
+                    <label >*Фамилия</label>
+                    <input type="text" placeholder="Фамилия" disabled>
+                </div>
+                <div class="pure-control-group">
+                    <label >*Имя</label>
+                    <input  type="text" placeholder="Имя" disabled>
+                </div>
+                <div class="pure-control-group">
+                    <label >*Отчество</label>
+                    <input  type="text" placeholder="Отчество" disabled>
+                </div>
+                <div class="pure-control-group">
+                    <label >*Дата рождения</label>
+                    <input  type="text" placeholder="Дата рождения" id="datepicker" disabled>                        
+                </div>
+                <div class="pure-control-group">
+                    <label >*Вес</label>
+                    <input type="text" placeholder="Вес" required>
+                </div>
+                <div class="pure-control-group">
+                    <label >*Пол</label>
+                    <select  placeholder="Пол">
+                        <option value="true">Мужской</option>
+                        <option value="false">Женский</option>
+                    </select>
+                </div>
+                <div class="pure-control-group">
+                    <label>*Разряд</label>
+                    <select placeholder="Разряд">
+                    	<option value="1">1-й юношеский разряд</option>
+                    	<option value="2">2-й юношеский разряд</option>
+                    	<option value="3">3-й юношеский разряд</option>
+                    	<option value="4">1-й спортивный разряд</option>
+                    	<option value="5">2-й спортивный разряд</option>
+                    	<option value="6">3-й спортивный разряд</option>
+                    	<option value="7">КМС</option>
+                    	<option value="8">МС</option>
+                    	<option value="9">МСМК</option>
+                    	<option value="10">ЗМС</option>
+                    </select>
+                </div>
+                <div style="text-align: center;margin-top:20px;"><button type="button" class="pure-button pure-button-primary submit-button">Сохранить</button></div>
+            </fieldset>
+        </form>
+    </div>
+    <script>
+        var picker = new Pikaday({
+            field: document.getElementById('datepicker'),
+            format: 'DD.MM.YYYY'
+        });
+        if(window.MD===undefined)window.MD={};
+        window.MD.editSportman={};
+        {
+			(function(){
+				var self=window.MD.editSportman;
+				self.body=document.getElementById("editSportman");
+				self.body.style.display="none";
+				temp=self.body.getElementsByTagName("input");
+				self.fio={secondName:temp[0],name:temp[1],patronymic:temp[2]};
+				self.birthday=temp[3];
+				self.weight=temp[4];
+				temp=self.body.getElementsByTagName("select");
+				self.gender=temp[0];
+				self.level=temp[1];
+				self.callback=0;
+				self.index=0;
+				self.close=function(){
+					self.clear();
+					self.body.style.display="none";
+					utility.modalStack.pop();
+				}
+				addEvent("click",getElementsByClass("close-button",self.body)[0],self.close);
+				
+				self.clear=function(){
+					self.fio.secondName.value="";
+					self.fio.name.value="";
+					self.fio.patronymic.value="";
+					self.birthday.value="";
+					self.weight.value="";
+					self.gender.options[0].selected=true;
+					self.level.options[0].selected=true;
+				}
+				self.check=function(){
+					var res=true;
+					if(self.birthday.value=="")res=false;
+					if(self.weight.value=="")res=false;
+					return res;
+				}
+				self.show=function(settings){
+					self.clear();
+					self.callback=settings.callback;
+					self.index=settings.index;
+					self.fio.secondName.value=settings.sportman.secondName;
+					self.fio.name.value=settings.sportman.name;
+					self.fio.patronymic.value=settings.sportman.patronymic;
+					self.birthday.value=settings.sportman.dateBirthday;
+					self.weight.value=settings.sportman.weight;
+					self.gender.value=settings.sportman.gender.value;
+					self.level.value=settings.sportman.rank.value;
+					if(self.body.parentNode!==null)self.body.parentNode.removeChild(self.body);
+					utility.modalStack.setContent(self.body,self.close);
+					utility.modalStack.show();
+					
+				}
+				self.submit=function(){
+					if(self.check()){
+						var obj={
+							index:self.index,
+							weight:self.weight.value,
+							gender:{key:self.gender.options[self.gender.selectedIndex].text,value:self.gender.value},
+							rank:{key:self.level.options[self.level.selectedIndex].text,value:self.level.value}
+						}
+						self.callback(obj);
+						utility.modalStack.pop();
+						return false;
+					}
+				}
+				addEvent("click",self.body.getElementsByTagName("button")[0],self.submit);
+			})();
+        }
+    </script>
+</div>

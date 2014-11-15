@@ -1,0 +1,30 @@
+<div  ng-controller="sportmanOld">
+	<div class="participants">
+		<table class="pure-table pure-table-bordered">
+		    <thead>
+		        <tr>
+		            <th>Фамилия</th>
+		            <th>Имя</th>
+		            <th>Отчество</th>
+		            <th>Дата</br>рождения</th>
+		            <th>Вес</th>
+		            <th>Пол</th>
+		            <th>Разряд</th>
+		            <th>Статус</th>
+		        </tr>
+		    </thead>
+		    <tbody >
+		        <tr ng-repeat="sportman in sportmans">
+		            <td>{{sportman.surname}}</td>
+		            <td >{{sportman.name}}</td>
+		            <td>{{sportman.patronymic}}</td>
+		            <td>{{sportman.dateBirthday}}</td>
+		            <td>{{sportman.weight}}</td>
+		            <td>{{sportman.gender.key}}</td>
+		            <td>{{sportman.rank.key}}</td>
+		            <td>{{sportman.status.key}}</td>
+		        </tr>
+		    </tbody>
+		</table>
+	</div>
+</div>
