@@ -29,6 +29,7 @@
         <script src="scripts/moment.js"></script>
         <script src="scripts/pikaday.js"></script>
         <script src="angular/angular.js"></script>
+        <script src="angular/angular-route.js"></script>
         <link rel="stylesheet" href="css/andrey.css">
         <link rel="stylesheet" href="css/pikaday.css">
         <link rel="stylesheet" href="css/base.css">
@@ -183,7 +184,12 @@
                     <span class="fio">{{user.surname}} {{user.name}} {{user.patronymic}}</span>
                 </div>
             </div>
-            <div ng-include="'templates/couch-start.html'"></div>
+            <?php
+                if($app::$user instanceof CouchUser) printf("<div ng-include=\"'templates/couch-start.html'\"></div>");
+                else printf("<div ng-view></div>");
+            ?>
+                
+
             <div class="footer">
                 <p>
                     <a href="http://xn---70-5cdf9dpu.xn--p1ai/" target="_blank">САМБО-70</a>
@@ -195,7 +201,9 @@
         <?php
             require('ModalWindows\add-sportman.template');
             require('ModalWindows\edit-sportman.template');
+            if($app::$user instanceof CouchUser) printf("<script src=\"scripts/app.js\"></script>");
+            else printf("<script src=\"scripts/admin/app.js\"></script>");
         ?>
-        <script src="scripts/app.js"></script>
+        
     </body>
 </html>

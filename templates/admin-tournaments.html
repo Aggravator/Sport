@@ -1,0 +1,18 @@
+<div ng-controller="tournamentsCouch" >
+	<div class="left-column">
+	    <div class="inner">
+	        <div class="category" ng-click="clickCategory(1)" ng-class="{envelop:activeCategory==1}"><div style="width:30px;float: left;height: 20px;"></div><div class="name">Создать</div><div class="counts"><div></div>&nbsp;<div></div></div></div>
+	        <div class="category" ng-click="clickCategory(2)" ng-class="{envelop:activeCategory==2}"><div class="arrow"></div><div class="name">Актуальные</div><div class="counts"><div></div>&nbsp;<div>{{activeT.length}}</div></div></div>
+	        <ul class="tournament-list" ng-show="activeCategory==2">
+	            <li ng-repeat="tournament in activeT | orderBy:'dateStart'" ng-click="chooseActiveS(1,$index)">{{tournament.dateStart | date:'dd.MM.yyyy'}} {{tournament.name}}</li>
+	        </ul>
+	        <div class="category" ng-click="clickCategory(3)" ng-class="{envelop:activeCategory==3}"><div class="arrow"></div><div class="name">Завершенные</div><div class="counts"><div></div>&nbsp;<div>{{oldT.length}}</div></div></div>
+	        <ul class="tournament-list" ng-show="activeCategory==3">
+	            <li ng-repeat="tournament in oldT | orderBy:'dateStart':true" ng-click="chooseActiveS(2,$index)">{{tournament.dateStart | date:'dd.MM.yyyy'}} {{tournament.name}}</li>
+	        </ul>
+	    </div>
+	</div>
+	<div class="right-column" ng-include="activeSubview.url">
+		
+	</div>
+</div>

@@ -1,0 +1,11 @@
+<div ng-controller="rootAdmin" >
+	<div class="left-column">
+	    <div class="inner">
+	        <div class="category" ng-click="tournamentsClick()" ><div style="width:30px;float: left;height: 20px;"></div><div class="name">Соревнования</div><div class="counts"><div></div>&nbsp;<div></div></div></div>
+	        <div class="category" ng-click="requestsClick()" ><div style="width:30px;float: left;height: 20px;"></div><div class="name">Заявки</div><div class="counts"><div></div>&nbsp;<div>{{newRequestCount}}</div></div></div>
+	    </div>
+	</div>
+	<div class="right-column" ng-include="activeSubview.url">
+		
+	</div>
+</div>
