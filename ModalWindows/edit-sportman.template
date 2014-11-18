@@ -53,10 +53,7 @@
         </form>
     </div>
     <script>
-        var picker = new Pikaday({
-            field: document.getElementById('datepicker'),
-            format: 'DD.MM.YYYY'
-        });
+
         if(window.MD===undefined)window.MD={};
         window.MD.editSportman={};
         {
@@ -71,6 +68,10 @@
 				temp=self.body.getElementsByTagName("select");
 				self.gender=temp[0];
 				self.level=temp[1];
+				/*self.picker = new Pikaday({
+					field: document.getElementById('datepicker'),
+					format: 'DD.MM.YYYY'
+				});*/
 				self.callback=0;
 				self.index=0;
 				self.close=function(){

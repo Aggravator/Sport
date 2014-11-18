@@ -1,0 +1,37 @@
+<div  ng-controller="sportmanApprove">
+	<div class="participants">
+		<div style="padding:5px;">Отправитель: {{creator}}</div>
+		<div style="padding:5px;">Клуб: {{club}}</div>
+		<table class="pure-table pure-table-bordered">
+		    <thead>
+		        <tr>
+		            <th>Фамилия</th>
+		            <th>Имя</th>
+		            <th>Отчество</th>
+		            <th>Дата</br>рождения</th>
+		            <th>Вес</th>
+		            <th>Пол</th>
+		            <th>Разряд</th>
+		            <th>Одобрено</th>
+		            <th>Отклонено</th>
+		        </tr>
+		    </thead>
+		    <tbody >
+		        <tr ng-repeat="sportman in sportmans">
+		            <td>{{sportman.surname}}</td>
+		            <td >{{sportman.name}}</td>
+		            <td>{{sportman.patronymic}}</td>
+		            <td>{{sportman.dateBirthday}}</td>
+		            <td>{{sportman.weight}}</td>
+		            <td>{{sportman.gender.key}}</td>
+		            <td>{{sportman.rank.key}}</td>
+		            <td><input type="radio" value="1" ng-disabled="activeSubview==subviews[1]" ng-click="sportman.status!=1 && makeChange()" ng-model="sportman.status"/></td>
+		            <td><input type="radio" value="0" ng-disabled="activeSubview==subviews[1]" ng-click="sportman.status!=0 && makeChange()" ng-model="sportman.status"/></td>
+		        </tr>
+		    </tbody>
+		</table>
+	</div>
+	<div style="margin-top: 20px;" ng-show="hasChanged">
+		<a class="pure-button pure-button-primary" ng-click="save()">Сохранить</a>
+	</div>
+</div>

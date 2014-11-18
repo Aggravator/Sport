@@ -49,6 +49,30 @@
             .dialog .content{
             	background-color:#ffffff;
             }
+            .pure-form td{
+				padding:5px;
+				vertical-align: middle;
+				text-align:left;
+			}
+			.pure-form .left-column{
+				text-align:right;
+				width:200px;
+			}
+			.pure-form input{
+				height:35px;
+			}
+			.pure-form select{
+				height:35px;
+			}
+			.pure-form input[name=birthdays]{
+				width:60px;
+			}
+			.pure-form input[name=birthdaye]{
+				width:60px;
+			}
+			.pure-form input[name=rdateend]{
+				width:110px;
+			}
 		</style>
 	</head>
 	<body>
@@ -58,58 +82,67 @@
 				<div class="close-button">✖</div>
 			</div>
 			<div class="content">
-				<form class="pure-form pure-form-aligned authority-form">
-	                <fieldset>
-	                    <div class="pure-control-group">
-	                        <label >*Фамилия</label>
-	                        <input type="text" placeholder="Фамилия" required>
-	                    </div>
-	                    <div class="pure-control-group">
-	                        <label >*Имя</label>
-	                        <input  type="text" placeholder="Имя" required>
-	                    </div>
-	                    <div class="pure-control-group">
-	                        <label >*Отчество</label>
-	                        <input  type="text" placeholder="Отчество" required>
-	                    </div>
-	                    <div class="pure-control-group">
-	                        <label >*Дата рождения</label>
-	                        <input  type="text" placeholder="Дата рождения" id="datepicker" required>                        
-	                    </div>
-	                    <div class="pure-control-group">
-	                        <label >*Вес</label>
-	                        <input type="text" placeholder="Вес" required>
-	                    </div>
-	                    <div class="pure-control-group">
-	                        <label >*Пол</label>
-	                        <select  placeholder="Пол">
-	                        	<option value="true">Мужской</option>
-	                        	<option value="false">Женский</option>
-	                        </select>
-	                    </div>
-	                    <div class="pure-control-group">
-	                        <label>*Разряд</label>
-	                        <select placeholder="Пол">
-	                        	<option value="1">1-й юношеский разряд</option>
-	                        	<option value="2">2-й юношеский разряд</option>
-	                        	<option value="3">3-й юношеский разряд</option>
-	                        	<option value="4">1-й спортивный разряд</option>
-	                        	<option value="5">2-й спортивный разряд</option>
-	                        	<option value="6">3-й спортивный разряд</option>
-	                        	<option value="7">КМС</option>
-	                        	<option value="8">МС</option>
-	                        	<option value="9">МСМК</option>
-	                        	<option value="10">ЗМС</option>
-	                        </select>
-	                    </div>
-	                    <div style="text-align: center;margin-top:20px;"><button type="button" class="pure-button pure-button-primary submit-button">Добавить</button></div>
-	                </fieldset>
-	            </form>
+				<form class="pure-form">
+					<table>
+						<tr>
+							<td class="left-column">Наименование</td>
+							<td><input type="text"/></td>
+						</tr>
+						<tr>
+							<td class="left-column">Вид спорта</td>
+							<td>
+								<select>
+									
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td class="left-column">Год рождения спортсменов</td>
+							<td> с <input type="text" name="birthdays"/> до <input type="text" name="birthdaye"/></td>
+						</tr>
+						<tr>
+							<td class="left-column">Место проведения</td>
+							<td><input type="text"/></td>
+						</tr>
+						<tr>
+							<td class="left-column">Дата проведения</td>
+							<td><input type="text" name='start-date'/></td>
+						</tr>
+						<tr>
+							<td class="left-column">Организатор соревнования</td>
+							<td><input type="text"/></td>
+						</tr>
+						<tr>
+							<td class="left-column">Дата и время завершения приёма заявок</td>
+							<td ><input type="text" name="rdateend"/>
+								<select>
+									<option>00</option><option>01</option><option>02</option><option>03</option><option>04</option><option>05</option><option>06</option><option>07</option><option>08</option><option>09</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option>
+								</select> :
+								<select>
+									<option>00</option><option>01</option><option>02</option><option>03</option><option>04</option><option>05</option><option>06</option><option>07</option><option>08</option><option>09</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24</option><option>25</option><option>26</option><option>27</option><option>28</option><option>29</option><option>30</option><option>31</option><option>32</option><option>33</option><option>34</option><option>35</option><option>36</option><option>37</option><option>38</option><option>39</option><option>40</option><option>41</option><option>42</option><option>43</option><option44</option><option>45</option><option>46</option><option>47</option><option>48</option><option>49</option><option>50</option><option>51</option><option>52</option><option>53</option><option>54</option><option>55</option><option>56</option><option>57</option><option>58</option><option>59</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td class="left-column">Главный судья</td>
+							<td><input type="text"/></td>
+						</tr>
+						<tr>
+							<td colspan="2" style="text-align: center;">
+								<div class="pure-button">Создать</div>
+							</td>
+						</tr>
+					</table>
+				</form>
 			</div>
 			<script>
-				var picker = new Pikaday({
-			        field: document.getElementById('datepicker'),
-			        format: 'DD.MM.YYYY'
+		        var picker2=new Pikaday({
+		        	field:document.getElementsByName("rdateend")[0],
+		        	format: 'DD.MM.YYYY'
+		        });
+		        var picker=new Pikaday({
+		        	field:document.getElementsByName("start-date")[0],
+		        	format: 'DD.MM.YYYY'
 		        });
 		        if(window.MD===undefined)window.MD={};
 		        window.MD.addSportman={};

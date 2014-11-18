@@ -1,0 +1,17 @@
+<div ng-controller="requestsAdmin" >
+	<div class="left-column">
+	    <div class="inner">
+	        <div class="category" ng-click="clickCategory(1)" ng-class="{envelop:activeCategory==1}"><div class="arrow"></div><div class="name">Необработанные</div><div class="counts"><div></div>&nbsp;<div>{{newR.length}}</div></div></div>
+	        <ul class="tournament-list" ng-show="activeCategory==1" style="height:437px;">
+	            <li ng-repeat="request in newR | orderBy:'dateStart'" ng-click="chooseActiveS(1,request)">{{request.dateStart | date:'dd.MM.yyyy'}} {{request.tname}}<br/>{{request.fio}}</li>
+	        </ul>
+	        <div class="category" ng-click="clickCategory(2)" ng-class="{envelop:activeCategory==2}"><div class="arrow"></div><div class="name">Обработанные</div><div class="counts"><div></div>&nbsp;<div>{{oldR.length}}</div></div></div>
+	        <ul class="tournament-list" ng-show="activeCategory==2" style="height:437px;">
+	            <li ng-repeat="request in oldR | orderBy:'dateStart':true" ng-click="chooseActiveS(2,request)">{{request.dateStart | date:'dd.MM.yyyy'}} {{request.tname}}<br/>{{request.fio}}</li>
+	        </ul>
+	    </div>
+	</div>
+	<div class="right-column" ng-include="activeSubview.url">
+		
+	</div>
+</div>

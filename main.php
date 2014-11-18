@@ -95,7 +95,7 @@
                 overflow-y:auto;
             }
             .left-column .inner .tournament-list li{
-                padding:5px 0px 0px 15px;
+                padding:5px 0px 5px 15px;
                 cursor:pointer; 
             }
             .left-column .inner .tournament-list li:hover{
@@ -129,56 +129,24 @@
                 cursor:pointer;
                 color:#0000EE;
             }
-
-            .dialog{
-                border:1px solid #C8C8C8;
-                -webkit-border-radius: 4px;
-                -moz-border-radius: 4px;
-                border-radius: 4px;
-                padding:0px;
-                text-align:left;
-            }
-            .dialog .header{
-                height:30px;
-                background-color: #dddddd;
-                color:#aaaaaa;
-                font-size:24px;
-                border-bottom:1px solid #aaaaaa;
-            }
-            .dialog .header .text{
-                color:#555555;
-                font-size:18px;
-                float:left;
-                line-height:30px;
-                margin-left:10px;
-            }
-            .dialog .header .close-button{
-                float:right;
-                height:100%;
-                line-height:30px;
-                width:30px;
-                text-align:center;
-                border-left:1px solid #aaaaaa;
-                cursor:pointer;
-            }
-            .dialog .header .close-button:hover{
-                color:#555555;
-            }
-            .dialog .content{
-                padding:10px 5px 10px 5px;
-                background-color:#ffffff;
-            }
+            input.ng-invalid.ng-dirty, select.ng-invalid.ng-dirty {
+			  border: 1px solid red !important;
+			}
+			input.ng-valid.ng-dirty, select.ng-valid.ng-dirty {
+			  border: 1px solid green !important;
+			}
             .dialog .content select{height:36px;}
         </style>
     </head>
     <body>
         <div class="container">
             <div class="nav-bar">
-                <div class="nav-bar-inner gradient-grey">
+                <div class="nav-bar-inner gradient-grey" ng-controller="navigationController">
                     <ul class="nav-path lpath">
-                        <li>САМБО-70</li>
+                        <li ng-repeat="link in navigationPath" ng-click="linkClick($index)">{{link.name}}</li>
                     </ul>
                     <ul class="right-menu">
+                        <li ng-click="goBack()" ng-show="navigationPath.length>1">Назад</li>
                         <li onclick="window.location.assign('exit.php')">Выход</li>
                     </ul>
                     <span class="fio">{{user.surname}} {{user.name}} {{user.patronymic}}</span>
@@ -188,8 +156,6 @@
                 if($app::$user instanceof CouchUser) printf("<div ng-include=\"'templates/couch-start.html'\"></div>");
                 else printf("<div ng-view></div>");
             ?>
-                
-
             <div class="footer">
                 <p>
                     <a href="http://xn---70-5cdf9dpu.xn--p1ai/" target="_blank">САМБО-70</a>

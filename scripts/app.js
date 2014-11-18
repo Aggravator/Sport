@@ -1,8 +1,27 @@
-var app=angular.module('App',[]).run(function($rootScope) {
+var app=angular.module('App',['ngRoute']).run(function($rootScope,$location) {
 	$rootScope.user=usr;
+	$rootScope.location=$location;
+	$rootScope.navigationPath=[{name:"САМБО-70",url:"/"}]
 });
+app.controller("navigationController",["$scope",function($scope,$rootScope){
+	$scope.linkClick=function(index){
+		$scope.location.path($scope.navigationPath[index].url);
+		$scope.navigationPath.splice(index+1,$scope.navigationPath.length-index-1);
+	};
+	$scope.goBack=function(){
+		$scope.navigationPath.pop();
+		$scope.location.path($scope.navigationPath[$scope.navigationPath.length-1].url);
+	};
+}]);
 app.controller("sportmanReg",["$scope","$http",function($scope,$http){
 	$scope.sportmans=[];
+	$scope.refresh=function(){
+		$http.get('/Sport/data/getTournamentInf.php?qtype=ajax&tid='+$scope.newT[$scope.activeTournament].id).success(function(data, status, headers, config) {
+			$scope.minAge=data.birthdayStart;
+			$scope.maxAge=data.birthdayEnd;
+		});
+	}
+	$scope.refresh();
 	$scope.editSportman=function(index){
 		MD.editSportman.show({index:index,sportman:$scope.sportmans[index],callback:function(obj){
 			$scope.$apply(function(){
@@ -13,7 +32,7 @@ app.controller("sportmanReg",["$scope","$http",function($scope,$http){
 		}});
 	}
 	$scope.addSportman=function(){
-		MD.addSportman.show({callback:function(obj){
+		MD.addSportman.show({minAge:$scope.minAge,maxAge:$scope.maxAge,callback:function(obj){
 			$scope.$apply(function(){
 				$scope.sportmans.push(obj);
 			});
@@ -35,54 +54,56 @@ app.controller("sportmanActive",["$scope","$http",function($scope,$http){
 	$scope.sportmans=[];
 	$scope.refresh=function(){
 		$http.get('/Sport/data/couchTournamentActive.php?qtype=ajax&tournament='+$scope.activeT[$scope.activeTournament].id).success(function(data, status, headers, config) {
-			for(i=0;i<data.length;++i){
-				if(data.ismale)data[i].gender={key:'Мужской',value:"true"};
-				else data[i].gender={key:'Женский',value:"false"};
-				switch(data[i].rank){
+			for(i=0;i<data.sportmans.length;++i){
+				if(data.sportmans[i].ismale)data.sportmans[i].gender={key:'Мужской',value:"true"};
+				else data.sportmans[i].gender={key:'Женский',value:"false"};
+				switch(data.sportmans[i].rank){
 					case "1":
-						data[i].rank={key:'1-й юношеский разряд',value:1};
+						data.sportmans[i].rank={key:'1-й юношеский разряд',value:1};
 						break;
 					case "2":
-						data[i].rank={key:'2-й юношеский разряд',value:2};
+						data.sportmans[i].rank={key:'2-й юношеский разряд',value:2};
 						break;
 					case "3":
-						data[i].rank={key:'3-й юношеский разряд',value:3};
+						data.sportmans[i].rank={key:'3-й юношеский разряд',value:3};
 						break;
 					case "4":
-						data[i].rank={key:'1-й спортивный разряд',value:4};
+						data.sportmans[i].rank={key:'1-й спортивный разряд',value:4};
 						break;
 					case "5":
-						data[i].rank={key:'2-й спортивный разряд',value:5};
+						data.sportmans[i].rank={key:'2-й спортивный разряд',value:5};
 						break;
 					case "6":
-						data[i].rank={key:'3-й спортивный разряд',value:6};
+						data.sportmans[i].rank={key:'3-й спортивный разряд',value:6};
 						break;
 					case "7":
-						data[i].rank={key:'КМС',value:7};
+						data.sportmans[i].rank={key:'КМС',value:7};
 						break;
 					case "8":
-						data[i].rank={key:'МС',value:8};
+						data.sportmans[i].rank={key:'МС',value:8};
 						break;
 					case "9":
-						data[i].rank={key:'МСМК',value:9};
+						data.sportmans[i].rank={key:'МСМК',value:9};
 						break;
 					case "10":
-						data[i].rank={key:'ЗМС',value:10};
+						data.sportmans[i].rank={key:'ЗМС',value:10};
 						break;
 				}
-				switch(data[i].status){
+				switch(data.sportmans[i].status){
 					case "1":
-						data[i].status={key:'Одобрено',value:1};
+						data.sportmans[i].status={key:'Одобрено',value:1};
 						break;
 					case "0":
-						data[i].status={key:'Отклонено',value:2};
+						data.sportmans[i].status={key:'Отклонено',value:2};
 						break;
 					default:
-						data[i].status={key:'Не рассмотрено',value:0};
+						data.sportmans[i].status={key:'Не рассмотрено',value:0};
 						break;
 				}
 			}
-			$scope.sportmans=data;
+			$scope.sportmans=data.sportmans;
+			$scope.minAge=data.minAge;
+			$scope.maxAge=data.maxAge;
 		}).
 		error(function(data, status, headers, config) {
 			
@@ -90,7 +111,7 @@ app.controller("sportmanActive",["$scope","$http",function($scope,$http){
 	}
 	$scope.refresh();
 	$scope.editSportman=function(index){
-		MD.editSportman.show({index:index,sportman:$scope.sportmans[index],callback:function(obj){
+		MD.editSportman.show({index:index,sportman:$scope.sportmans[index],minAge:$scope.minAge,maxAge:$scope.maxAge,callback:function(obj){
 			$scope.$apply(function(){
 				$scope.sportmans[obj.index].weight=obj.weight;
 				$scope.sportmans[obj.index].gender=obj.gender;
@@ -100,7 +121,7 @@ app.controller("sportmanActive",["$scope","$http",function($scope,$http){
 		}});
 	}
 	$scope.addSportman=function(){
-		MD.addSportman.show({callback:function(obj){
+		MD.addSportman.show({minAge:$scope.minAge,maxAge:$scope.maxAge,callback:function(obj){
 			$scope.$apply(function(){
 				obj.status={key:'Не рассмотрено',value:0};
 				$scope.sportmans.push(obj);
@@ -126,55 +147,55 @@ app.controller("sportmanActive",["$scope","$http",function($scope,$http){
 app.controller("sportmanOld",["$scope","$http",function($scope,$http){
 	$scope.sportmans=[];
 	$scope.refresh=function(){
-		$http.get('/Sport/data/couchTournamentActive.php?qtype=ajax&tournament='+$scope.oldT[$scope.activeTournament].id).success(function(data, status, headers, config) {
-			for(i=0;i<data.length;++i){
-				if(data.ismale)data[i].gender={key:'Мужской',value:"true"};
-				else data[i].gender={key:'Женский',value:"false"};
-				switch(data[i].rank){
+		$http.get('/Sport/data/couchTournamentActive.php?qtype=ajax&tournament='+$scope.activeT[$scope.activeTournament].id).success(function(data, status, headers, config) {
+			for(i=0;i<data.sportmans.length;++i){
+				if(data.sportmans[i].ismale)data.sportmans[i].gender={key:'Мужской',value:"true"};
+				else data.sportmans[i].gender={key:'Женский',value:"false"};
+				switch(data.sportmans[i].rank){
 					case "1":
-						data[i].rank={key:'1-й юношеский разряд',value:1};
+						data.sportmans[i].rank={key:'1-й юношеский разряд',value:1};
 						break;
 					case "2":
-						data[i].rank={key:'2-й юношеский разряд',value:2};
+						data.sportmans[i].rank={key:'2-й юношеский разряд',value:2};
 						break;
 					case "3":
-						data[i].rank={key:'3-й юношеский разряд',value:3};
+						data.sportmans[i].rank={key:'3-й юношеский разряд',value:3};
 						break;
 					case "4":
-						data[i].rank={key:'1-й спортивный разряд',value:4};
+						data.sportmans[i].rank={key:'1-й спортивный разряд',value:4};
 						break;
 					case "5":
-						data[i].rank={key:'2-й спортивный разряд',value:5};
+						data.sportmans[i].rank={key:'2-й спортивный разряд',value:5};
 						break;
 					case "6":
-						data[i].rank={key:'3-й спортивный разряд',value:6};
+						data.sportmans[i].rank={key:'3-й спортивный разряд',value:6};
 						break;
 					case "7":
-						data[i].rank={key:'КМС',value:7};
+						data.sportmans[i].rank={key:'КМС',value:7};
 						break;
 					case "8":
-						data[i].rank={key:'МС',value:8};
+						data.sportmans[i].rank={key:'МС',value:8};
 						break;
 					case "9":
-						data[i].rank={key:'МСМК',value:9};
+						data.sportmans[i].rank={key:'МСМК',value:9};
 						break;
 					case "10":
-						data[i].rank={key:'ЗМС',value:10};
+						data.sportmans[i].rank={key:'ЗМС',value:10};
 						break;
 				}
-				switch(data[i].status){
+				switch(data.sportmans[i].status){
 					case "1":
-						data[i].status={key:'Одобрено',value:1};
+						data.sportmans[i].status={key:'Одобрено',value:1};
 						break;
 					case "0":
-						data[i].status={key:'Отклонено',value:2};
+						data.sportmans[i].status={key:'Отклонено',value:2};
 						break;
 					default:
-						data[i].status={key:'Не рассмотрено',value:0};
+						data.sportmans[i].status={key:'Не рассмотрено',value:0};
 						break;
 				}
 			}
-			$scope.sportmans=data;
+			$scope.sportmans=data.sportmans;
 		}).
 		error(function(data, status, headers, config) {
 			

@@ -53,10 +53,6 @@
         </form>
     </div>
     <script>
-        var picker = new Pikaday({
-            field: document.getElementById('datepicker'),
-            format: 'DD.MM.YYYY'
-        });
         if(window.MD===undefined)window.MD={};
         window.MD.addSportman={};
         {
@@ -71,7 +67,10 @@
 				temp=self.body.getElementsByTagName("select");
 				self.gender=temp[0];
 				self.level=temp[1];
-				
+				self.picker = new Pikaday({
+					field: document.getElementById('datepicker'),
+					format: 'DD.MM.YYYY'
+				});
 				self.callback=0;
 				self.close=function(){
 					self.clear();
@@ -99,6 +98,9 @@
 				}
 				self.show=function(settings){
 					self.clear();
+					self.picker.setMinDate(new Date(settings.minAge,0,1));
+					self.picker.setMaxDate(new Date(settings.maxAge,11,31));
+					self.picker.gotoYear(settings.minAge);
 					if(self.body.parentNode!==null)self.body.parentNode.removeChild(self.body);
 					utility.modalStack.setContent(self.body,self.close);
 					utility.modalStack.show();

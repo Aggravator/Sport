@@ -1,0 +1,94 @@
+<style type="text/css">
+	.pure-form td{
+		padding:5px;
+		vertical-align: middle;
+		text-align:left;
+	}
+	.pure-form .left-column{
+		text-align:right;
+		width:50%;
+	}
+	.pure-form input{
+		height:35px;
+	}
+	.pure-form select{
+		height:35px;
+	}
+	.pure-form input[name=birthdays]{
+		width:75px;
+	}
+	.pure-form input[name=birthdaye]{
+		width:75px;
+	}
+	.pure-form input[name=rdateend]{
+		width:110px;
+	}
+	.pure-form input[disabled]{
+		background: #eee !important;
+		color: #777 !important;
+	}
+	.pure-form select[disabled]{
+		background: #eee !important;
+		color: #777 !important;
+	}
+</style>
+<form class="pure-form" name="createtournament" ng-controller="adminWatchTournament">
+	<table style="width:100%;">
+		<tr>
+			<td class="left-column">Наименование</td>
+			<td><input type="text" ng-model="tournament.name" ng-readonly="status.id==1" required/></td>
+		</tr>
+		<tr>
+			<td class="left-column">Вид спорта</td>
+			<td>
+				<select ng-model="tournament.sport" ng-disabled="status.id==1" required ng-options="obj.id as obj.name for obj in sports | orderBy:'name'">
+					
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td class="left-column">Характер</td>
+			<td>
+				<select ng-model="tournament.type" ng-disabled="status.id==1" required>
+					<option value="1">личное</option><option value="2">командное</option><option value="3">лично-командное</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td class="left-column">Год рождения спортсменов</td>
+			<td> с <input type="number" min="1940" max="2100" name="birthdays" ng-readonly="status.id==1" ng-model="tournament.birthdayStart"/> до <input type="number" min="1940" max="2100" name="birthdaye" ng-readonly="status.id==1" ng-model="tournament.birthdayEnd"/></td>
+		</tr>
+		<tr>
+			<td class="left-column">Место проведения</td>
+			<td><input type="text" ng-model="tournament.place" ng-readonly="status.id==1"  required/></td>
+		</tr>
+		<tr>
+			<td class="left-column">Дата проведения</td>
+			<td><input type="text" name='start-date' ng-disabled="status.id==1" ng-model="tournament.dateStart" required/></td>
+		</tr>
+		<tr>
+			<td class="left-column">Организатор соревнования</td>
+			<td><input type="text" ng-model="tournament.organaizer" ng-readonly="status.id==1" required/></td>
+		</tr>
+		<tr>
+			<td class="left-column">Дата и время завершения приёма заявок</td>
+			<td style="white-space:nowrap;"><input type="text" name="rdateend" ng-model="tournament.acceptDate" ng-disabled="status.id==1" required/>&nbsp
+				<select ng-model="tournament.acceptHour" ng-disabled="status.id==1" required>
+					<option selected>00</option><option>01</option><option>02</option><option>03</option><option>04</option><option>05</option><option>06</option><option>07</option><option>08</option><option>09</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option>
+				</select> :
+				<select ng-model="tournament.acceptMinute" ng-disabled="status.id==1" required>
+					<option sellected>00</option><option>01</option><option>02</option><option>03</option><option>04</option><option>05</option><option>06</option><option>07</option><option>08</option><option>09</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24</option><option>25</option><option>26</option><option>27</option><option>28</option><option>29</option><option>30</option><option>31</option><option>32</option><option>33</option><option>34</option><option>35</option><option>36</option><option>37</option><option>38</option><option>39</option><option>40</option><option>41</option><option>42</option><option>43</option><option44</option><option>45</option><option>46</option><option>47</option><option>48</option><option>49</option><option>50</option><option>51</option><option>52</option><option>53</option><option>54</option><option>55</option><option>56</option><option>57</option><option>58</option><option>59</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td class="left-column">Главный судья</td>
+			<td><input type="text" ng-model="tournament.mainJudge" ng-readonly="status.id==1" required/></td>
+		</tr>
+		<tr>
+			<td colspan="2" style="text-align: center;">
+				<div class="pure-button pure-button-primary" ng-class="{'pure-button-disabled':status.id==2 && createtournament.$invalid}" ng-click="submit()">{{status.text}}</div>
+			</td>
+		</tr>
+	</table>
+</form>

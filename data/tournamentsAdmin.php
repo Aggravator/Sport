@@ -2,7 +2,7 @@
     require_once '../mainlib.php';
     global $app;
     $result=array();
-    $query="select tournament.tournament_id,tournament_name,tournament_date_start, if(tournament_date>now(),true,false))";
+    $query="select tournament.tournament_id,tournament_name,tournament_date_start, if(tournament_date_start>now(),true,false) as actual from tournament";
     $rs=$app::$connection->query($query);
     $result['actualT']=array();
     $result['oldT']=array();

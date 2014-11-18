@@ -12,7 +12,9 @@
             for($i=0;$i<count($post['athlets']);++$i){
                 $temp=$post['athlets'][$i];
                 if($i!=0)$query.=",";
-                $query.=sprintf($pattern,$temp['surname'],$temp['name'],$temp['patronymic'],$post['tournament'],$app::$user->id,$app::$user->getPersonInfo()['club'],$temp['gender']['value'],$temp['weight'],$temp['rank']['value'],date("Y.m.d",strtotime($temp['dateBirthday'])));
+                $club=$app::$user->getPersonInfo();
+                $club=$club['club'];
+                $query.=sprintf($pattern,$temp['surname'],$temp['name'],$temp['patronymic'],$post['tournament'],$app::$user->id,$club,$temp['gender']['value'],$temp['weight'],$temp['rank']['value'],date("Y.m.d",strtotime($temp['dateBirthday'])));
             }
             $app::$connection->query($query.";");
             echo "{\"result\":\"success\"}";
