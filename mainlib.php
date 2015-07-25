@@ -1,3 +1,4 @@
+// Comment from clone
 <?php
     class MySQLUser{
         public function __construct($login,$password){
